@@ -27,15 +27,15 @@ class PushWeather {
 	public function checkColour($userWeather){
 		$colour;
 		if ($this->searchIn($userWeather, $this->greenCodes)){
-			$colour = "#00ff00";
+			$colour = "00ff00";
 		} elseif ($this->searchIn($userWeather, $this->lBlueCodes)) {
-			$colour = "lBlue";
+			$colour = "5cceff";
 		} elseif ($this->searchIn($userWeather, $this->blueCodes)) {
-			$colour = "#0000ff";
+			$colour = "0000ff";
 		} elseif ($this->searchIn($userWeather, $this->yellowCodes)) {
-			$colour = "#ffff00";
+			$colour = "ffff00";
 		} elseif ($this->searchIn($userWeather, $this->redCodes)) {
-			$colour = "#ff0000";
+			$colour = "ff0000";
 		}
 		return $colour;
 	}
@@ -52,7 +52,11 @@ class PushWeather {
 	}
 
 	public function lightOff($access_token, $deviceID) {
-		$this->setLED("000", $access_token, $deviceID);
+		$cube = new Cube($deviceID);
+		if($cube->getPublicAccessToken() == $access_token) {
+			$cube->setLED("000");
+			return TRUE;
+		} else return FALSE;
 	}
 
 	public function weatherMode($light, $cube) {
@@ -63,7 +67,7 @@ class PushWeather {
 		if ($light == "#ffff00"){
 			$cube->setMode(Light_Mode::FLASH);
 		} else {
-			$cube->setMode(Light_Mode::SOLID;
+			$cube->setMode(Light_Mode::SOLID);
 		}
 	}
 
