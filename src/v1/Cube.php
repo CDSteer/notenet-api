@@ -1,6 +1,7 @@
 <?php
 class Cube {
 	use Entity {
+		all    as trait_all;
 		create as trait_create;
 	}
 
@@ -103,6 +104,10 @@ class Cube {
 		return $this->_fetchCurlResult("setFlashRate", $rate);
 	}
 
+	public function getUser() {
+		return new User($this->data["user"]);
+	}
+
 	private function _fetchCurlResult($function, $params = NULL) {
 		if(is_null($this->_id))
 			return NULL;
@@ -111,6 +116,10 @@ class Cube {
 
 		if($result === FALSE) return NULL;
 		else return (object)json_decode($result);
+	}
+
+	public static function all() {
+		return Cube::trait_all();
 	}
 
 	public static function create() {
