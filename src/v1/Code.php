@@ -22,6 +22,10 @@ abstract class Code {
 	const DEVICE_REMOVE_SUCCESS     = 205;
 	const INVALID_DEVICE_ID         = 206;
 
+	// Location
+	const NULL_LOCATION    = 301;
+	const INVALID_LOCATION = 302;
+
 	// Code codes
 	const NO_CODE = 900;
 };
