@@ -13,7 +13,7 @@ class Cube {
 		"setMode",
 		"setFlashRate",
 		"ping",
-	);
+		);
 
 	public function Cube($id) {
 		$this->_id = $id;
@@ -71,10 +71,15 @@ class Cube {
 		if(is_null($this->_id))
 			return NULL;
 
-		$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $this->data["location"]);
-		$result = array_change_key_case($result, CASE_LOWER);
+		if(is_null($this->data["location"])) {
+			return array("ok" => FALSE, "message" => "NULL location");
+		} else {
+			$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $this->data["location"]);
+			$result = array_change_key_case($result, CASE_LOWER);
+			$result["ok"] = TRUE;
 
-		return (object)$result;
+			return (object)$result;
+		}
 	}
 
 	public function setLocation() {
