@@ -1,9 +1,10 @@
 <?php
 require_once("v1.php");
 
-$url = explode("/", substr($_SERVER["REDIRECT_URL"], strlen("/notenet/api/v1/")));
+$url = explode("/", substr($_SERVER["REDIRECT_URL"], strlen("/NoteCube/api/v1/")));
 $out = array();
 $params = isset($_GET["params"]) ? array($_GET["params"]) : (isset($_POST["params"]) ? array($_POST["params"]) : array());
+$access_token = isset($_GET["access_token"]) ? $_GET["access_token"] : (isset($_POST["access_token"]) ? $_POST["access_token"] : "");
 
 switch($url[0]) {
 	case "devices":
@@ -12,7 +13,7 @@ switch($url[0]) {
 		// Verify the cube exists
 		if($device->exists()) {
 			// Validate access token
-			if($device->getPublicAccessToken() == $_POST["access_token"]) {
+			if($device->getPublicAccessToken() == $access_token) {
 				// Is the function publicly allowed to be accessed?
 				if(in_array($url[2], Cube::$publicCalls)) {
 					// Return the requested data
@@ -55,7 +56,7 @@ switch($url[0]) {
 			// Verify the user exists
 			if($user->exists()) {
 				// Validate access token
-				if($user->getAccessToken() == $_POST["access_token"]) {
+				if($user->getAccessToken() == $access_token) {
 					// Is the function publicly allowed to be accessed?
 					if(in_array($url[2], User::$publicCalls)) {
 						// Return the requested data
