@@ -72,7 +72,7 @@ class Cube {
 			return NULL;
 
 		if(is_null($this->data["location"])) {
-			return array("ok" => FALSE, "message" => "NULL location");
+			return (object)array("ok" => FALSE, "message" => "NULL location");
 		} else {
 			$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $this->data["location"]);
 			$result = array_change_key_case($result, CASE_LOWER);
