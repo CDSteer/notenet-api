@@ -12,6 +12,18 @@ trait Entity {
 		DB::delete(get_class(), $pk." = ".(is_numeric($id) ? "%d" : "%s"), $id);
 	}
 
+	public static function all($pk = "id") {
+		$obj    = array();
+		$class  = get_class();
+		$result = DB::query("SELECT * FROM ".$class);
+
+		foreach($result as $row) {
+			$obj[] = new $class($row[$pk]);
+		}
+
+		return $obj;
+	}
+
 	public static function create() {
 		$params = func_get_arg(0);
 
