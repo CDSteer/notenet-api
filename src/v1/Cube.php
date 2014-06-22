@@ -72,7 +72,7 @@ class Cube {
 			return NULL;
 
 		if(is_null($this->data["location"])) {
-			return (object)array("ok" => FALSE, "message" => "NULL location");
+			return (object)array("ok" => FALSE, "code" => Code::NULL_LOCATION, "message" => "NULL location");
 		} else {
 			$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $this->data["location"]);
 			$result = array_change_key_case($result, CASE_LOWER);
@@ -88,10 +88,10 @@ class Cube {
 
 		$location = func_get_arg(0);
 		$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $location);
-		if(DB::count() == 0) return array("ok" => "false", "error" => "Invalid location ID");
+		if(DB::count() == 0) return array("ok" => "false", "code" => Code::INVALID_LOCATION, "message" => "Invalid location ID");
 
 		DB::update("Cube", (object)array("location" => $location), "id = %s", $this->_id);
-		return (object)array("ok" => "true", "location" => $location, "name" => $result["name"]);
+		return (object)array("ok" => "true", "code" => Code::SUCCESS, "location" => $location, "name" => $result["name"]);
 	}
 
 	public function setLED() {
