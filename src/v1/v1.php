@@ -1,6 +1,9 @@
 <?php
-function __autoload($class_name) {
-	include $class_name.".php";
+function __autoload($class) {
+	$path = realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR.$class.".php";
+
+	if(!class_exists($class) && file_exists($path))
+		require_once($path);
 }
 
 // Mysql Defines
