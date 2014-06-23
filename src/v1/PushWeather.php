@@ -10,7 +10,11 @@ class PushWeather {
 	public function pushAll() {
 		$cubes = Cube::all();
 		foreach ($cubes as $cube) {
-			$this->pushOne($cube);
+			$ping = $cube->ping();
+
+			if($ping->ok)
+				// Push if the cube can be pinged
+				$this->pushOne($cube);
 		}
 	}
 
