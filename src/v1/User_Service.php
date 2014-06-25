@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 class User_Service {
 	private $_user, $_error;
 
