@@ -1,4 +1,6 @@
 <?php
+require_once("Entity.php");
+
 class Cube {
 	use Entity {
 		all    as trait_all;
@@ -90,7 +92,7 @@ class Cube {
 		$result = DB::queryFirstRow("SELECT * FROM City WHERE id = %d", $location);
 		if(DB::count() == 0) return array("ok" => "false", "code" => Code::INVALID_LOCATION, "message" => "Invalid location ID");
 
-		DB::update("Cube", (object)array("location" => $location), "id = %s", $this->_id);
+		DB::update("Cube", array("location" => $location), "id = %s", $this->_id);
 		return (object)array("ok" => "true", "code" => Code::SUCCESS, "location" => $location, "name" => $result["name"]);
 	}
 
