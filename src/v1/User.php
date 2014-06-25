@@ -82,7 +82,7 @@ class User {
 	public function setPassword($password, $salt) {
 		$this->data["password"] = User_Service::generateHash($password, $salt);
 		$this->data["salt"]     = $salt;
-		$this->commit();
+		$this->commit($this->getID());
 	}
 
 	/**
@@ -91,7 +91,7 @@ class User {
 	*/
 	public function setUsername($username) {
 		$this->data["username"] = $username;
-		$this->commit();
+		$this->commit($this->getID());
 	}
 
 	/**
@@ -100,7 +100,7 @@ class User {
 	*/
 	public function setEmailAddress($email_address) {
 		$this->data["email_address"] = $email_address;
-		$this->commit();
+		$this->commit($this->getID());
 	}
 
 	/**

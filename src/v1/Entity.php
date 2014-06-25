@@ -35,7 +35,7 @@ trait Entity {
 		}
 	}
 
-	protected function commit() {
+	protected function commit($id, $pk = "id") {
 		DB::update(get_class(), $this->data, $pk." = ".(is_numeric($id) ? "%d" : "%s"), $id);
 	}
 };
