@@ -1,4 +1,6 @@
 <?php
+require_once("Entity.php");
+
 class User {
 	use Entity {
 		create as trait_create;
@@ -26,7 +28,7 @@ class User {
 	* @return Returns a string representing the name of this user.
 	*/
 	public function getID() {
-		return $this->_id;
+		return intval($this->_id);
 	}
 
 	/**
