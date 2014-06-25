@@ -1,4 +1,6 @@
 <?php
+die;
+header("Content-Type: text/plain");
 require_once("v1.php");
 
 $url = explode("/", substr($_SERVER["REDIRECT_URL"], strlen("/NoteCube/api/v1/")));
@@ -93,4 +95,5 @@ switch($url[0]) {
 
 // Because JSON
 print(json_encode($out));
+die;
 ?>
