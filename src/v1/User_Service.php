@@ -85,8 +85,9 @@ class User_Service {
 			$_SESSION["code"] = Code::NO_SUCH_USER;
 		}
 
-		// Return the result
-		return $find->ok;
+		$code = Code::SUCCESS;
+		if(isset($_SESSION["code"])) $code = $_SESSION["code"];
+		return (object)array("ok" => $find->ok, "code" => $code);
 	}
 
 	public static function generateSalt($len = 128) {
