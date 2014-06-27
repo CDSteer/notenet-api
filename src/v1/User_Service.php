@@ -59,6 +59,9 @@ class User_Service {
 	public function login($username, $password) {
 		// Try to find a user
 		$find = User::find($username);
+		$ok = FALSE;
+
+		unset($_SESSION["code"]);
 
 		if($find->ok) {
 			// Fetch user data
@@ -73,6 +76,8 @@ class User_Service {
 					$_SESSION["code"] = Code::SUCCESS;
 
 					$this->_user = $user;
+
+					$ok = TRUE;
 				} else {
 					$_SESSION["code"] = Code::INVALID_PASSWORD;
 				}
@@ -86,8 +91,8 @@ class User_Service {
 		}
 
 		$code = Code::SUCCESS;
-		if(isset($_SESSION["code"])) $code = $_SESSION["code"];
-		return (object)array("ok" => $find->ok, "code" => $code);
+		if(isset($_SESSION["code"])) $code = intval($_SESSION["code"]);
+		return (object)array("ok" => $ok, "code" => $code);
 	}
 
 	public static function generateSalt($len = 128) {
