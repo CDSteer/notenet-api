@@ -31,10 +31,14 @@ class Cube {
 		$result = $this->_fetchCurlResult("ping");
 		$end = microtime(TRUE);
 
-		if($result->code == 400) return (object)array("ok" => FALSE, "code" => Code::INVALID_DEVICE);
-
-		if($result === FALSE) return (object)array("ok" => FALSE, "code" => Code::CANT_CONNECT_TO_DEVICE);
-		else return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000));
+		if(is_null($result))
+			return (object)array("ok" => FALSE, "code" => Code::CANT_CONNECT_TO_DEVICE);
+		else {
+			if($result->code == 400)
+				return (object)array("ok" => FALSE, "code" => Code::INVALID_DEVICE);
+			else
+				return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000), "result" => (array)$result);
+		}
 	}
 
 	public function getID() {
