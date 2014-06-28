@@ -123,7 +123,7 @@ class Color {
 		Color::$ORANGE  = new Color(255 , 128 , 0  );
 
 		// Duplicate names
-		Color::$FUSCHIA = Color::$FUSCHIA;
+		Color::$FUSCHIA = Color::$MAGENTA;
 		Color::$AQUA    = Color::$CYAN;
 	}
 
