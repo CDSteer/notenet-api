@@ -36,8 +36,14 @@ class Cube {
 		else {
 			if($result->code == 400)
 				return (object)array("ok" => FALSE, "code" => Code::INVALID_DEVICE);
-			else
-				return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000), "result" => (array)$result);
+			else if($result->code == 200)
+				return (object)array("ok" => FALSE, "code" => Code::CANT_CONNECT_TO_DEVICE);
+			else {
+				if($result->connected)
+					return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000), "result" => (array)$result);
+				else if(!$result->ok)
+					return (object)array("ok" => FALSE, "code" => Code::OUTDATED_FIRMWARE);
+			}
 		}
 	}
 
@@ -119,7 +125,7 @@ class Cube {
 		return new User($this->data["user"]);
 	}
 
-	private function _fetchCurlResult($function, $params = NULL) {
+	private function _fetchCurlResult($function, $params = "") {
 		if(is_null($this->_id))
 			return NULL;
 
