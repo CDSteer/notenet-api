@@ -5,14 +5,18 @@ header("Access-Control-Allow-Origin: *");
 require_once(ROOT."/api/v1/v1.php");
 
 function request($key, $default = "", $array = FALSE) {
+	/* probably not even necessary. array_merge with $_GET and $_POST would
+	 * probably be a cleaner route */
 	return isset($_GET[$key]) ? ($array ? array($_GET[$key]) : $_GET[$key]) : (isset($_POST[$key]) ? ($array ? array($_POST[$key]) : $_POST[$key]) : $default);
 }
 
+/* url parsing */
 $url = array_filter(explode("/", $_SERVER["REQUEST_URI"])); array_shift($url);
 $out = array();
 $params = request("params", array(), TRUE);
 $access_token = request("access_token");
 
+/* remove query string */
 $url[count($url)-1] = preg_replace("/\?.*/", "", $url[count($url)-1]);
 
 switch($url[0]) {
@@ -25,7 +29,7 @@ switch($url[0]) {
 					$out = call_user_func_array(array($device, $url[2]), $params);
 
 					if(is_null($out)) {
-						$out = array("ok" => "false", "error" => "No result");
+						$out = array("ok" => FALSE, "error" => "No result");
 					} else {
 						if(is_object($out)) {
 							$out = (array)$out;
@@ -34,13 +38,13 @@ switch($url[0]) {
 						}
 					}
 				} else {
-					$out = array("ok" => "false", "error" => "Invalid function call");
+					$out = array("ok" => FALSE, "error" => "Invalid function call");
 				}
 			} else {
-				$out = array("ok" => "false", "error" => "Invalid access token");
+				$out = array("ok" => FALSE, "error" => "Invalid access token");
 			}
 		} else {
-			$out = array("ok" => "false", "error" => "No such cube");
+			$out = array("ok" => FALSE, "error" => "No such cube");
 		}
 	break;
 
@@ -56,7 +60,7 @@ switch($url[0]) {
 						$out = call_user_func_array(array($user, $url[2]), $params);
 
 						if(is_null($out)) {
-							$out = array("ok" => "false", "error" => "No result");
+							$out = array("ok" => FALSE, "error" => "No result");
 						} else {
 							if(is_object($out)) {
 								$out = (array)$out;
@@ -65,13 +69,13 @@ switch($url[0]) {
 							}
 						}
 					} else {
-						$out = array("ok" => "false", "error" => "Invalid function call");
+						$out = array("ok" => FALSE, "error" => "Invalid function call");
 					}
 				} else {
-					$out = array("ok" => "false", "error" => "Invalid access token");
+					$out = array("ok" => FALSE, "error" => "Invalid access token");
 				}
 			} else {
-				$out = array("ok" => "false", "error" => "No such user");
+				$out = array("ok" => FALSE, "error" => "No such user");
 			}
 		}
 		break;
