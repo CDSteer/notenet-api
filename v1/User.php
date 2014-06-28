@@ -167,7 +167,7 @@ class User {
 		if(is_null($this->_id))
 			return NULL;
 
-		$result = CURL::request(array("users", $this->_id, $function), NULL, array("access_token" => $this->getAccessToken(), "params" => $params));
+		$result = CURL::request(array("users", $this->_id, "func"), NULL, array("access_token" => $this->getAccessToken(), "params" => $function."|".$params));
 
 		if($result === FALSE) return NULL;
 		else return (object)json_decode($result);
