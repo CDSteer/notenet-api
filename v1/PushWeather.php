@@ -1,5 +1,5 @@
 <?php
-class PushWeather {
+class Push_Weather {
 	private $greenCodes = [800, 801, 802, 803, 804, 903, 904, 905, 950, 951, 952, 953, 954, 955];
 	private $lBlueCodes = [300, 301, 302, 310, 311, 312, 313, 314, 321, 500];
 	private $blueCodes = [501, 502, 503, 504, 511, 520, 521, 522, 531, 906];
