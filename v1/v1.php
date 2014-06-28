@@ -23,10 +23,10 @@ require_once("User.php");
 require_once("User_Service.php");
 
 // Mysql Defines
-define("MYSQL_HOSTNAME", "localhost");
-define("MYSQL_USERNAME", "nothingp");
-define("MYSQL_PASSWORD", "360p0nt4life56123");
-define("MYSQL_DATABASE", "nothingp_notenet");
+define("MYSQL_HOSTNAME", "notenet.io");
+define("MYSQL_USERNAME", "oliverda_notenet");
+define("MYSQL_PASSWORD", "91ttv69J9mqYiMqRoi5p");
+define("MYSQL_DATABASE", "oliverda_notenet");
 
 // Set DB values
 DB::$host     = MYSQL_HOSTNAME;
