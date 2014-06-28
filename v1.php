@@ -1,19 +1,19 @@
 <?php
 define("ROOT", "/home/oliverda/addons/notenet.io");
 header("Content-Type: text/plain");
+header("Access-Control-Allow-Origin: *");
 require_once(ROOT."/api/v1/v1.php");
 
 function request($key, $default = "", $array = FALSE) {
 	return isset($_GET[$key]) ? ($array ? array($_GET[$key]) : $_GET[$key]) : (isset($_POST[$key]) ? ($array ? array($_POST[$key]) : $_POST[$key]) : $default);
 }
 
-$url = explode("/", $_SERVER["REDIRECT_URL"]);
+$url = array_filter(explode("/", $_SERVER["REQUEST_URI"])); array_shift($url);
 $out = array();
 $params = request("params", array(), TRUE);
 $access_token = request("access_token");
 
-var_dump($url);
-die;
+$url[count($url)-1] = preg_replace("/\?.*/", "", $url[count($url)-1]);
 
 switch($url[0]) {
 	case "devices":
