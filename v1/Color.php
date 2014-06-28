@@ -24,8 +24,11 @@ class Color {
 					$this->g = hexdec(substr($hex, 2, 2));
 					$this->b = hexdec(substr($hex, 4, 2));
 				}
+			} else if(is_int($argv[0])) {
+				$this->r = $argv[0];
+				$this->g = $argv[0];
+				$this->b = $argv[0];
 			}
-			return new Color($r, $g, $b);
 		} else if($argc == 3) {
 			$this->r = intval($argv[0]);
 			$this->g = intval($argv[1]);
@@ -122,6 +125,13 @@ class Color {
 		// Duplicate names
 		Color::$FUSCHIA = Color::$FUSCHIA;
 		Color::$AQUA    = Color::$CYAN;
+	}
+
+	public static function random() {
+		$rnd = array_rand(str_split("0123456789abcdef"), 6);
+		for($i = 0; $i < sizeof($rnd); $i++)
+			$rnd[$i] = dechex($rnd[$i]);
+		return new Color(implode($rnd));
 	}
 
 	// Colors
