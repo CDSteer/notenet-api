@@ -40,7 +40,7 @@ class Cube {
 				return (object)array("ok" => FALSE, "code" => Code::CANT_CONNECT_TO_DEVICE);
 			else {
 				if($result->connected)
-					return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000), "result" => (array)$result);
+					return (object)array("ok" => TRUE, "code" => Code::SUCCESS, "latency" => intval(($end - $start) * 1000));
 				else if(!$result->ok)
 					return (object)array("ok" => FALSE, "code" => Code::OUTDATED_FIRMWARE);
 			}
@@ -129,7 +129,7 @@ class Cube {
 		if(is_null($this->_id))
 			return NULL;
 
-		$result = CURL::request(array("devices", $this->getDeviceID(), $function), NULL, array("access_token" => $this->getPrivateAccessToken(), "params" => $params));
+		$result = CURL::request(array("devices", $this->getDeviceID(), "func"), NULL, array("access_token" => $this->getPrivateAccessToken(), "params" => $function."|".$params));
 
 		if($result === FALSE) return NULL;
 		else return (object)json_decode($result);
