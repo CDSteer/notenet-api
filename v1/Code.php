@@ -21,6 +21,7 @@ abstract class Code {
 	const DEVICE_ALREADY_REGISTERED = 204;
 	const DEVICE_REMOVE_SUCCESS     = 205;
 	const INVALID_DEVICE_ID         = 206;
+	const OUTDATED_FIRMWARE         = 207;
 
 	// Location
 	const NULL_LOCATION    = 301;
